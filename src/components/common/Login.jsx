@@ -8,10 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(""); // ✅ State for forgot password email
-  const [showForgotModal, setShowForgotModal] = useState(false); // ✅ Toggle modal
+  const [email, setEmail] = useState(""); 
+  const [showForgotModal, setShowForgotModal] = useState(false); 
 
-  // 🔹 Handle Login Form Submission
+  
   const submitHandler = async (data) => {
     try {
       const res = await axios.post("/user/login", data);
@@ -28,7 +28,7 @@ export const Login = () => {
     }
   };
 
-  // 🔹 Handle Forgot Password
+  
   const handleForgotPassword = async () => {
     if (!email) {
       toast.error("Please enter your email.");
@@ -38,13 +38,13 @@ export const Login = () => {
     try {
       const res = await axios.post("/user/forgotpassword", { email });
       toast.success(res.data.message);
-      setShowForgotModal(false); // Close modal after success
+      setShowForgotModal(false); 
     } catch (error) {
       toast.error(error.response?.data?.message || "Error sending reset link.");
     }
   };
 
-  // 🔹 Form Validation Schema
+  
   const validationSchema = {
     email: { required: "Email is required", pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email format" } },
     password: { required: "Password is required" },
@@ -57,7 +57,7 @@ export const Login = () => {
         <div className="card p-4 shadow-lg" style={{ maxWidth: "400px", width: "100%", borderRadius: "10px", background: "#ffffff" }}>
           <h2 className="text-center mb-3" style={{ color: "#ff4757", fontWeight: "bold", textTransform: "uppercase" }}>Login</h2>
 
-          {/* Login Form */}
+          
           <form onSubmit={handleSubmit(submitHandler)}>
             <div className="mb-3">
               <label className="form-label" style={{ fontWeight: "bold", color: "#333" }}>Email</label>
@@ -74,19 +74,19 @@ export const Login = () => {
             <button type="submit" className="btn btn-primary w-100" style={{ background: "#ff4757", border: "none" }}>Login</button>
           </form>
 
-          {/* Forgot Password */}
+          
           <div className="text-center mt-3">
             <a href="#" onClick={() => setShowForgotModal(true)} style={{ color: "#ff4757", textDecoration: "none", fontWeight: "bold" }}>Forgot Password?</a>
           </div>
 
-          {/* Signup Link */}
+          
           <div className="text-center mt-2">
             <p>Don't have an account? <a href="/signup" style={{ color: "#ff4757", textDecoration: "none", fontWeight: "bold" }}>Sign up</a></p>
           </div>
         </div>
       </div>
 
-      {/* 🔹 Forgot Password Modal */}
+      
       {showForgotModal && (
         <div className="modal d-block" tabIndex="-1" style={{ background: "rgba(0, 0, 0, 0.5)" }}>
           <div className="modal-dialog">

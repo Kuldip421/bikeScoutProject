@@ -38,28 +38,24 @@ export const AddBikeDetail = () => {
   }
   return (
     <>
-      {/*begin::Body*/}
-      {/*begin::App Wrapper*/}
+     
       <div className="app-wrapper">
-        {/*begin::Header*/}
-
-        {/*end::Header*/}
-        {/*begin::Form Validation*/}
+      
         <div className="card card-info card-outline mb-4">
-          {/*begin::Header*/}
+          
           <div  className="card-header">
             <div  style={{ paddingLeft:"40%" }} className="card-title">
               <h1  >addBikeDetail</h1>
             </div>
           </div>
-          {/*end::Header*/}
-          {/*begin::Form*/}
+
+          
           <form className="needs-validation" onSubmit={handleSubmit(submitHandler)}>
-            {/*begin::Body*/}
+            
             <div className="card-body">
-              {/*begin::Row*/}
+              
               <div className="row g-3">
-                {/*begin::Col*/}
+                
                 <div className="col-md-6">
                   <label htmlFor="validationCustom01" className="form-label">
                     brand
@@ -73,8 +69,7 @@ export const AddBikeDetail = () => {
                   />
                   <div className="valid-feedback">Looks good!</div>
                 </div>
-                {/*end::Col*/}
-                {/*begin::Col*/}
+                
                 <div className="col-md-6">
                   <label htmlFor="validationCustom02" className="form-label">
                     model
@@ -88,8 +83,7 @@ export const AddBikeDetail = () => {
                   />
                   <div className="valid-feedback">Looks good!</div>
                 </div>
-                {/*end::Col*/}
-                {/*begin::Col*/}
+              
                 <div className="col-md-6">
                   <label
                     htmlFor="validationCustomUsername"
@@ -281,11 +275,7 @@ export const AddBikeDetail = () => {
                     Please choose a username.
                   </div>
                 </div>
-                {/*end::Col*/}
-                {/*begin::Col*/}
-               
-                {/*end::Col*/}
-                {/*begin::Col*/}
+             
                 <div className="col-md-6">
                   <label htmlFor="validationCustom04" className="form-label">
                   select  state
@@ -309,7 +299,7 @@ export const AddBikeDetail = () => {
                     Please select a valid state.
                   </div>
                 </div>
-                {/*end::Col*/}
+           
                 <div className="col-md-6">
                   <label htmlFor="validationCustom04" className="form-label">
                     select city
@@ -353,35 +343,23 @@ export const AddBikeDetail = () => {
                 </div>
               
                 
-                {/*end::Col*/}
-                {/*begin::Col*/}
               
-                {/*end::Col*/}
               </div>
-              {/*end::Row*/}
+            
             </div>
-            {/*end::Body*/}
-            {/*begin::Footer*/}
+           
             <div style={{ textAlign: "center" }} className="card-footer">
               <button  style={{ width: "300px", height: "60px", fontSize: "2rem" }} className="btn btn-info" type="submit">
                 addBikeDetail
               </button>
             </div>
-            {/*end::Footer*/}
+          
           </form>
-          {/*end::Form*/}
-          {/*begin::JavaScript*/}
-          {/*end::JavaScript*/}
+         
         </div>
-        {/*end::Form Validation*/}
+      
       </div>
-      {/*end::Col*/}
-
-      {/*end::Row*/}
-      {/*end::Container*/}
-      {/*end::App Content*/}
-      {/*end::App Main*/}
-      {/*begin::Footer*/}
+   
     </>
   );
 };

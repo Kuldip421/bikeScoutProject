@@ -22,13 +22,13 @@ const ReviewList = ({ bikeId }) => {
       {reviews && reviews.length > 0 ? (
         reviews.map((review) => (
           <div key={review._id} style={styles.reviewCard}>
-            {/* User Avatar & Name */}
+           
             <div style={styles.userInfo}>
               <div style={styles.avatar}>{review.userId.Username?.charAt(0).toUpperCase() || "U"}</div>
               <p style={styles.userName}>{review.userId.Username || "Unknown User"}</p>
             </div>
 
-            {/* Star Rating */}
+   
             <div style={styles.starRating}>
               {[...Array(5)].map((_, index) => (
                 <span key={index} style={{ ...styles.star, color: index < review.rating ? "#ffcc00" : "#ddd" }}>
@@ -37,7 +37,7 @@ const ReviewList = ({ bikeId }) => {
               ))}
             </div>
 
-            {/* Review Comment */}
+         
             <p style={styles.comment}>📝 {review.comment || "No comment provided"}</p>
           </div>
         ))
@@ -48,7 +48,6 @@ const ReviewList = ({ bikeId }) => {
   );
 };
 
-// Updated Styles
 const styles = {
   container: {
     maxWidth: "700px",

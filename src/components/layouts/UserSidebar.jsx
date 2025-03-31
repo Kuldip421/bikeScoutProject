@@ -24,11 +24,7 @@ export const UserSidebar = () => {
       >
         <div className="sidebar-brand">
           <a href="./index.html" className="brand-link">
-            {/* <img
-              src="../../dist/assets/img/AdminLTELogo.png"
-              // alt="AdminLTE Logo"
-              className="brand-image opacity-75 shadow"
-            /> */}
+          
 
             <strong className="brand-text fw-dark">Kuldip</strong>
           </a>

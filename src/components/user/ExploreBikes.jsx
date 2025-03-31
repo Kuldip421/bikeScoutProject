@@ -64,9 +64,7 @@ const ExploreBikes = (bikeId) => {
     const closeModal = () => {
         setSelectedBike(null);
     };
-    const refreshReviews = () => {
-        window.location.reload(); // Simple method to refresh the review list
-      }
+
     return (
         <>
           <ToastContainer
@@ -114,14 +112,12 @@ const ExploreBikes = (bikeId) => {
                             <img src={bike.bikeURL} alt={bike.model} style={{ width: "100%", borderRadius: "10px", height: "200px", objectFit: "cover" }} />
                             <h3 style={{ color: "#fbc531", fontSize: "20px", marginTop: "10px" }}>{bike.model}</h3>
                             <p style={{ fontSize: "14px", color: "#dcdde1" }}>Brand: {bike.brand}</p>
-                            <p style={{ fontSize: "16px", fontWeight: "bold", color: "#fbc531" }}>Price: ₹{bike.price}</p>
+                            <p style={{ fontSize: "16px", fontWeight: "bold", color: "#fbc531" }}>PRICE: ₹{bike.price}</p>
+                        
                             <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
                                 <button onClick={() => setSelectedBike(bike)} 
                                     style={{ padding: "8px 12px", borderRadius: "8px", backgroundColor: "#00a8ff", color: "#fff", fontWeight: "bold", cursor: "pointer", fontSize: "14px", transition: "background 0.3s" }}>View Details</button>
-                                
-                                <button onClick={() => handleWishlist(bike)} 
-                                    style={{ padding: "8px 12px", borderRadius: "8px", backgroundColor: "#e84118", color: "#fff", fontWeight: "bold", cursor: "pointer", fontSize: "14px", transition: "background 0.3s" }}>Wishlist</button>
-                                
+                              
                                 <button onClick={() => handleBuyNow(bike)} 
                                     style={{ padding: "8px 12px", borderRadius: "8px", backgroundColor: "#44bd32", color: "#fff", fontWeight: "bold", cursor: "pointer", fontSize: "14px", transition: "background 0.3s" }}>Buy Now</button>
                             </div>
@@ -141,8 +137,8 @@ const ExploreBikes = (bikeId) => {
                         <button onClick={() => handleWishlist(selectedBike)} style={{ background: "#e84118", color: "#fff", border: "none", padding: "12px 20px", borderRadius: "8px", cursor: "pointer", fontWeight: "bold" }}>Add to Wishlist</button>
                     </div>
                     <div style={{ width: "100%", marginTop: "15px" }}>
-                            <ReviewForm bikeId={selectedBike._id} onReviewSubmit={() => setRefreshReviews(prev => !prev)} />
-                            <ReviewList bikeId={selectedBike._id} refreshTrigger={refreshReviews} />
+                            <ReviewForm bikeId={selectedBike._id}  />
+                            <ReviewList bikeId={selectedBike._id}  />
                         </div>
                 </div>
             )}

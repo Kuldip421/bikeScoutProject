@@ -82,10 +82,10 @@ export const AddBikeDetail2 = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        transition={Slide} // ✅ Added slide effect
+        transition={Slide} 
         theme="colored"
       />
-      {/* Override any hover effects on the card */}
+   
       <style>{`
         .card:hover {
           transform: none !important;

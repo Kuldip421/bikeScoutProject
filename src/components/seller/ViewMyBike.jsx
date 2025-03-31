@@ -100,24 +100,14 @@ export const ViewMyBike = () => {
     </div>
   );
 
-  // Handle Edit functionality
-  function handleEdit(id) {
-    console.log('Editing bike with id:', id);
-    // Implement the edit functionality (navigate to an edit page, etc.)
-  }
-
-  // Handle Delete functionality
-  function handleDelete(id) {
-    console.log('Deleting bike with id:', id);
-    // Implement the delete functionality (confirmation, etc.)
-  }
+ 
 };
 
-// Styling objects
+
 const pageBackgroundStyle = {
-  background: 'linear-gradient(135deg, #4e54c8, #8f94fb)', // New cool gradient
+  background: 'linear-gradient(135deg, #4e54c8, #8f94fb)', 
   minHeight: '100vh',
-  padding: '0', // Removed extra padding for full coverage
+  padding: '0', 
   fontFamily: 'Arial, sans-serif',
   boxSizing: 'border-box',
 };
@@ -132,17 +122,17 @@ const titleStyle = {
   textShadow: '3px 3px 8px rgba(0, 0, 0, 0.3)',
   margin: '20px auto',
   padding: '10px 20px',
-  background: 'rgba(0, 0, 0, 0.5)', // Dark overlay behind text
+  background: 'rgba(0, 0, 0, 0.5)', 
   borderRadius: '10px',
   maxWidth: 'fit-content',
 };
 
 const rowStyle = {
-  margin: '0', // Remove default row margins
+  margin: '0', 
 };
 
 const colStyle = {
-  padding: '10px',  // Small padding to separate cards
+  padding: '10px', 
 };
 
 const cardStyle = {
@@ -155,7 +145,7 @@ const cardStyle = {
 };
 
 const cardHeaderStyle = {
-  backgroundColor: '#2C3E50', // New card header color
+  backgroundColor: '#2C3E50',
   color: 'white',
   borderTopLeftRadius: '15px',
   borderTopRightRadius: '15px',
@@ -173,7 +163,7 @@ const cardTitleStyle = {
 const cardBrandStyle = {
   fontStyle: 'italic',
   fontWeight: '500',
-  color: '#bdc3c7', // New lighter shade
+  color: '#bdc3c7',
   margin: '0',
 };
 
@@ -196,13 +186,13 @@ const bikeDetailsStyle = {
   color: '#333',
   lineHeight: '1.6',
   padding: '10px',
-  background: '#ecf0f1', // Updated details background
+  background: '#ecf0f1', 
   borderRadius: '8px',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
 const cardFooterStyle = {
-  backgroundColor: '#34495e', // New footer color
+  backgroundColor: '#34495e', 
   padding: '10px 0',
 };
 
@@ -211,8 +201,7 @@ const editButtonStyle = {
   width: '100px',
   borderRadius: '30px',
   fontWeight: 'bold',
-  backgroundColor: '#27ae60', // New edit button color
-  color: 'white',
+  backgroundColor: '#27ae60', 
   border: 'none',
   transition: 'all 0.3s ease',
   padding: '0 20px',
@@ -226,7 +215,7 @@ const deleteButtonStyle = {
   width: '100px',
   borderRadius: '30px',
   fontWeight: 'bold',
-  backgroundColor: '#c0392b', // New delete button color
+  backgroundColor: '#c0392b', 
   color: 'white',
   border: 'none',
   transition: 'all 0.3s ease',
@@ -235,7 +224,7 @@ const deleteButtonStyle = {
   cursor: 'pointer',
 };
 
-// Card hover animation using CSS rule
+
 const styleSheet = document.styleSheets[0];
 styleSheet.insertRule('.card:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); }', styleSheet.cssRules.length);
 

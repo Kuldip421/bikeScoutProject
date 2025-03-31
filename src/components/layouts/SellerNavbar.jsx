@@ -62,15 +62,7 @@ export const SellerNavbar = ({ toggleSidebar }) => {
 
           <li className="nav-item">
             <button className="btn btn-danger" onClick={handleLogout}>LOGOUT</button>
-            {/* <a className="nav-link" href="#" data-lte-toggle="fullscreen">
-              <i data-lte-icon="maximize" className="bi bi-arrows-fullscreen" />
-              <i
-                data-lte-icon="minimize"
-                className="bi bi-fullscreen-exit"
-                style={{ display: "none" }}
-              />
-            </a> */}
-            
+          
             
 
           </li>

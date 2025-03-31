@@ -4,7 +4,7 @@ import axios from "axios";
 const ReviewForm = ({ bikeId }) => {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
-  const userId = localStorage.getItem("id"); // Ensure userId is set
+  const userId = localStorage.getItem("id"); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ const ReviewForm = ({ bikeId }) => {
     }
   };
 
-  // Star Rating Component
+  
   const renderStars = () => {
     return [...Array(5)].map((_, index) => (
       <span
@@ -46,6 +46,9 @@ const ReviewForm = ({ bikeId }) => {
       </span>
     ));
   };
+  const refreshReviews = () => {
+    window.location.reload(); // Simple method to refresh the review list
+  }
 
   return (
     <form 
@@ -65,7 +68,7 @@ const ReviewForm = ({ bikeId }) => {
         Add Your Review
       </h3>
       
-      {/* Star Rating Input */}
+      
       <label style={{ display: "block", fontSize: "16px", fontWeight: "600", color: "#555", marginBottom: "10px" }}>
         Rating:
       </label>
@@ -73,7 +76,7 @@ const ReviewForm = ({ bikeId }) => {
         {renderStars()}
       </div>
 
-      {/* Comment Input */}
+    
       <label style={{ display: "block", fontSize: "16px", fontWeight: "600", color: "#555", marginBottom: "10px" }}>
         Your Review:
       </label>
@@ -95,7 +98,7 @@ const ReviewForm = ({ bikeId }) => {
         placeholder="Write your review here..."
       />
 
-      {/* Submit Button */}
+  
       <button 
         type="submit"
         style={{
@@ -113,6 +116,7 @@ const ReviewForm = ({ bikeId }) => {
         }}
         onMouseOver={(e) => e.target.style.background = "#0056b3"}
         onMouseOut={(e) => e.target.style.background = "#007bff"}
+        onClick={refreshReviews}
       >
         Submit Review
       </button>
