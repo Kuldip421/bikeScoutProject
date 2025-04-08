@@ -70,6 +70,15 @@ export const UserSidebar = () => {
                       </p>
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link to="orderhistory" className="nav-link active">
+                      <i className="nav-icon bi bi-speedometer" />
+                      <p>
+                        ORDERHISTORY
+                        <i className="nav-arrow bi bi-chevron-right" />
+                      </p>
+                    </Link>
+                  </li>
                   
                 </ul>
               

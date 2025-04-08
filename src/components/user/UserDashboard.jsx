@@ -16,7 +16,7 @@ const UserDashboard = () => {
                 const userId = localStorage.getItem("id");
                 if (!userId) return;
 
-                const orderResponse = await axios.get(`/order/getOrders/${userId}`);
+                const orderResponse = await axios.get(`/order/user/${userId}`);
                 setOrders(orderResponse.data.orders || []);
 
                 const response = await axios.get(`/wishlist/user/${userId}`);

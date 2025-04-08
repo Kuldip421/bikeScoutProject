@@ -3,43 +3,88 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReviewList from '../reviews/ReviewList';
 import CustomLoader from '../../hooks/CustomLoader';
+import { Slide, toast, ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
+
 
 export const ViewMyBike = () => {
   const [bikes, setBikes] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state for the loader
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    const getBikesByUserId = async () => {
-      try {
-        const res = await axios.get(`/bike/getbikesbyuserid/${localStorage.getItem("id")}`);
-        setBikes(res.data.data); // Assuming bikes are inside 'data'
-      } catch (error) {
-        console.error('Error fetching bikes:', error);
-      } finally {
-        setLoading(false); // Turn off loading once data is fetched
-      }
-    };
-
     getBikesByUserId();
-  }, []); // Empty array ensures this only runs once on component mount
+  }, []);
 
-  if (loading) {
-    return <CustomLoader />;
-  }
+  const getBikesByUserId = async () => {
+    try {
+      const res = await axios.get(`/bike/getbikesbyuserid/${localStorage.getItem("id")}`);
+      setBikes(res.data.data || []);
+    } catch (error) {
+      console.error('❌ Error fetching bikes:', error);
+      setBikes([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  if (bikes.length === 0) {
-    return <div className="text-center mt-5">No bikes available.</div>;
-  }
+  // 🛑 Delete Functionality
+  const handleDelete = async (bikeId) => {
+    const userId = localStorage.getItem("id");
+
+    const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+        const res = await axios.delete(`/bike/deletebike/${bikeId}/${userId}`);
+
+        if (res.data.success) {
+            Swal.fire("Deleted!", "Your bike has been deleted.", "success");
+            setBikes((prevBikes) => prevBikes.filter((bike) => bike._id !== bikeId)); // Remove from UI
+        } else {
+            Swal.fire("Error!", "Failed to delete bike.", "error");
+        }
+    } catch (error) {
+        console.error("Error deleting bike:", error);
+        Swal.fire("Oops!", "Something went wrong.", "error");
+    }
+};
+
+  
+
+
+
+  if (loading) return <CustomLoader />;
+  if (bikes.length === 0) return <div className="text-center mt-5">No bikes available.</div>;
 
   return (
+<>
+    <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            transition={Slide} // ✅ Added slide effect
+            theme="colored"></ToastContainer>
     <div style={pageBackgroundStyle}>
       <h3 style={titleStyle}>My Bike Collection</h3>
-      {/* Full width container with no padding */}
       <div className="container-fluid" style={{ padding: 0 }}>
         <div className="row" style={rowStyle}>
-          {/* Loop through the bikes array and create a card for each bike */}
           {bikes.map((bike) => (
-            <div key={bike.id} className="col-lg-3 col-md-4 col-sm-6" style={colStyle}>
+            <div key={bike._id} className="col-lg-3 col-md-4 col-sm-6" style={colStyle}>
               <div className="card h-100" style={cardStyle}>
                 <div className="card-header text-center" style={cardHeaderStyle}>
                   <h4 style={cardTitleStyle}>{bike.model}</h4>
@@ -61,33 +106,24 @@ export const ViewMyBike = () => {
                     <p><strong>Fuel Type:</strong> {bike.fuelType}</p>
                     <p><strong>Type:</strong> {bike.type}</p>
                     <p><strong>Listing Date:</strong> {bike.listingDate}</p>
-                    <p><strong>Description:</strong> {bike.descripiton}</p>
+                    <p><strong>Description:</strong> {bike.description}</p>
                     <p><strong>Color:</strong> {bike.color}</p>
                     <p><strong>Price:</strong> ${bike.price}</p>
-                    <p><strong>Registration Number:</strong> {bike.registationNum}</p>
+                    <p><strong>Registration Number:</strong> {bike.registrationNum}</p>
                   </div>
                   <div className="mt-3">
                     <h5>Customer Reviews</h5>
                     <ReviewList bikeId={bike._id} /> 
                   </div>
-
                 </div>
                 <div className="card-footer text-center" style={cardFooterStyle}>
-                  <Link to={`/seller/updatebike/${bike._id}`}  
-                    className="btn" 
-                    style={editButtonStyle}
-                    onClick={() => handleEdit(bike.id)}
-                    onMouseOver={(e) => e.target.style.backgroundColor = "#2ecc71"}
-                    onMouseOut={(e) => e.target.style.backgroundColor = "#27ae60"}
-                  >
+                  <Link to={`/seller/updatebike/${bike._id}`} className="btn" style={editButtonStyle}>
                     Update
                   </Link>
                   <button 
                     className="btn btn-danger" 
                     style={deleteButtonStyle}
-                    onClick={() => handleDelete(bike.id)}
-                    onMouseOver={(e) => e.target.style.backgroundColor = "#e74c3c"}
-                    onMouseOut={(e) => e.target.style.backgroundColor = "#c0392b"}
+                    onClick={() => handleDelete(bike._id)}
                   >
                     Delete
                   </button>
@@ -98,18 +134,15 @@ export const ViewMyBike = () => {
         </div>
       </div>
     </div>
+    </>
   );
-
- 
 };
 
-
 const pageBackgroundStyle = {
-  background: 'linear-gradient(135deg, #4e54c8, #8f94fb)', 
+  background: 'linear-gradient(135deg, #4e54c8, #8f94fb)',
   minHeight: '100vh',
-  padding: '0', 
+  padding: '0',
   fontFamily: 'Arial, sans-serif',
-  boxSizing: 'border-box',
 };
 
 const titleStyle = {
@@ -117,23 +150,17 @@ const titleStyle = {
   color: '#fff',
   fontSize: '36px',
   fontWeight: '700',
-  letterSpacing: '2px',
   textTransform: 'uppercase',
   textShadow: '3px 3px 8px rgba(0, 0, 0, 0.3)',
   margin: '20px auto',
   padding: '10px 20px',
-  background: 'rgba(0, 0, 0, 0.5)', 
+  background: 'rgba(0, 0, 0, 0.5)',
   borderRadius: '10px',
   maxWidth: 'fit-content',
 };
 
-const rowStyle = {
-  margin: '0', 
-};
-
-const colStyle = {
-  padding: '10px', 
-};
+const rowStyle = { margin: '0' };
+const colStyle = { padding: '10px' };
 
 const cardStyle = {
   borderRadius: '15px',
@@ -156,15 +183,12 @@ const cardTitleStyle = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: '700',
   fontSize: '1.5rem',
-  letterSpacing: '1px',
-  margin: '0',
 };
 
 const cardBrandStyle = {
   fontStyle: 'italic',
   fontWeight: '500',
   color: '#bdc3c7',
-  margin: '0',
 };
 
 const cardBodyStyle = {
@@ -186,13 +210,13 @@ const bikeDetailsStyle = {
   color: '#333',
   lineHeight: '1.6',
   padding: '10px',
-  background: '#ecf0f1', 
+  background: '#ecf0f1',
   borderRadius: '8px',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
 const cardFooterStyle = {
-  backgroundColor: '#34495e', 
+  backgroundColor: '#34495e',
   padding: '10px 0',
 };
 
@@ -201,7 +225,7 @@ const editButtonStyle = {
   width: '100px',
   borderRadius: '30px',
   fontWeight: 'bold',
-  backgroundColor: '#27ae60', 
+  backgroundColor: '#27ae60',
   border: 'none',
   transition: 'all 0.3s ease',
   padding: '0 20px',
@@ -215,7 +239,7 @@ const deleteButtonStyle = {
   width: '100px',
   borderRadius: '30px',
   fontWeight: 'bold',
-  backgroundColor: '#c0392b', 
+  backgroundColor: '#c0392b',
   color: 'white',
   border: 'none',
   transition: 'all 0.3s ease',
@@ -223,9 +247,5 @@ const deleteButtonStyle = {
   boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.1)',
   cursor: 'pointer',
 };
-
-
-const styleSheet = document.styleSheets[0];
-styleSheet.insertRule('.card:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); }', styleSheet.cssRules.length);
 
 export default ViewMyBike;

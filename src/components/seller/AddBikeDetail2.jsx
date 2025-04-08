@@ -66,7 +66,7 @@ export const AddBikeDetail2 = () => {
         Navigate("/seller/mybikes");
       }, 2000);
     } catch (error) {
-      toast.error("❌ Failed to add bike!", { className: "toast-error" });
+      toast.error("❌ Failed to add bike!", { className: "toast-error" })
     }
   };
 

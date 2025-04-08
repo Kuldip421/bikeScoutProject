@@ -27,6 +27,7 @@ import ExploreBikes from './components/user/ExploreBikes'
 import Wishlist from './components/user/WishList'
 import { ResetPassword } from './components/common/ResetPassword'
 import UserDashboard from './components/user/UserDashboard'
+import OrderHistory from './components/user/OrderHistory'
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
         <Route path='profile' element={<UserProfile/>}> </Route>
         <Route path='explorebike' element={<ExploreBikes/>}> </Route>
         <Route path='wishlist' element={<Wishlist/>}> </Route>
+        <Route path='orderhistory' element={<OrderHistory/>}> </Route>
         <Route path='dashboard' element={<UserDashboard/>}> </Route>
         </Route>
 

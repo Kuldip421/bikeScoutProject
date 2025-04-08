@@ -57,10 +57,56 @@ const ExploreBikes = (bikeId) => {
         }
     };
 
-    const handleBuyNow = (bike) => {
-        toast.success(`Proceeding to buy ${bike.model}`);
-    };
+   
 
+    const handleBuyNow = async (bike) => {
+      try {
+        const userId = localStorage.getItem("id");
+    
+        const response = await axios.post("/order/create-order", {
+          amount: bike.price,
+          userId,
+          bikeId: bike._id
+        });
+    
+        const { order, user } = response.data;
+    
+        const options = {
+          key: "rzp_test_A00Xot9pYdQcbk",
+          amount: order.amount,
+          currency: "INR",
+          name: "BikeScout",
+          description: "Bike Purchase",
+          image: "/logo.png",
+          order_id: order.id,
+          handler: async function (response) {
+            toast.success("Payment successful!");
+    
+          
+        
+    
+            toast.success("Order saved successfully!");
+          },
+          prefill: {
+            name: user.Username,
+            email: user.email,
+            contact: user.Phonenumber
+          },
+          theme: {
+            color: "#fbc531"
+          }
+        };
+    
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    
+      } catch (err) {
+        console.error("Razorpay error: ", err);
+        toast.error("Something went wrong during the payment process.");
+      }
+    };
+    
+      
     const closeModal = () => {
         setSelectedBike(null);
     };
@@ -118,9 +164,25 @@ const ExploreBikes = (bikeId) => {
                                 <button onClick={() => setSelectedBike(bike)} 
                                     style={{ padding: "8px 12px", borderRadius: "8px", backgroundColor: "#00a8ff", color: "#fff", fontWeight: "bold", cursor: "pointer", fontSize: "14px", transition: "background 0.3s" }}>View Details</button>
                               
-                                <button onClick={() => handleBuyNow(bike)} 
-                                    style={{ padding: "8px 12px", borderRadius: "8px", backgroundColor: "#44bd32", color: "#fff", fontWeight: "bold", cursor: "pointer", fontSize: "14px", transition: "background 0.3s" }}>Buy Now</button>
-                            </div>
+                              <button
+  onClick={() => handleBuyNow(bike)}
+  style={{
+    padding: "8px 12px",
+    borderRadius: "8px",
+    backgroundColor: "#44bd32",
+    color: "#fff",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontSize: "14px",
+    transition: "background 0.3s",
+    border: "none",
+  }}
+  onMouseOver={(e) => (e.target.style.backgroundColor = "#2ecc71")}
+  onMouseOut={(e) => (e.target.style.backgroundColor = "#44bd32")}
+>
+  Buy Now
+</button>
+                           </div>
                         </div>
                     ))}
                 </div>
