@@ -35,9 +35,8 @@ const OrderHistory = () => {
               <h3 style={{ color: "#f39c12", marginTop: "10px" }}>{order.bikeId?.model}</h3>
               <p><strong>Brand:</strong> {order.bikeId?.brand}</p>
               <p><strong>Price:</strong> ₹{order.amount }</p>
-              <p><strong>Order ID:</strong> {order.
-razorpayOrderId
-}</p>
+              <p><strong>Razorpay ID:</strong> {order.razorpayOrderId}</p>
+              <p><strong>Order ID:</strong> {order._id}</p>
               <p><strong>Status:</strong> Paid</p>
               <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
             </div>
